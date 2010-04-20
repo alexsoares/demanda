@@ -1,0 +1,42 @@
+<style media="print">
+.botao {
+display: none;
+}
+</style>
+
+<div id="conteudo">
+<br/>
+<br/>
+<h2 align="center">Gráfico Demanda por Unidade</h2>
+<hr>
+<br/>
+<br/>
+  <%= form_tag({ :method => 'post', :action => 'search' }, :id => 'graph-unit-form')%>
+    <%= error_messages_for 'contact' %>
+   <table>
+    <div class="botao">
+      <tr>
+        <th width="30%">
+          Selecione a Unidade desejada.
+        </th>
+        <td width="20%" align="center">
+          <%= collection_select :contact, :grafico_id, @unidades, :id, :nome%>
+        </td>
+        <td><%= submit_tag 'Go!' %></td>
+      </tr>
+    </div>
+    </table>
+  <br/>
+  <br/>
+  <br/>
+<table width="100%">
+  <tr>
+    <td align="center"><%= @graph %></td>
+  </tr>
+    <tr>
+    <td width="100%" align="center">
+      <%= link_to("Voltar", grafico_path) %>
+    </td>
+  </tr>
+</table>
+</div>

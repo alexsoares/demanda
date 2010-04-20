@@ -1,0 +1,236 @@
+   <script>
+       $(document).ready(function()
+         {
+            $("#dropdownbutton5").click(function ()
+               {
+                  $("#menu5").slideToggle("high");
+               });
+         });
+       $(document).ready(function()
+         {
+            $("#dropdownbutton9").click(function ()
+               {
+                  $("#menu9").slideToggle("high");
+               });
+         });
+
+        $(document).ready(function()
+          {
+            $("#dropdownbutton").click(function ()
+              {
+                $("#menu").slideToggle("high");
+              });
+          });
+
+       $(document).ready(function()
+         {
+            $("#dropdownbutton1").click(function ()
+               {
+                  $("#menu1").slideToggle("high");
+               });
+         });
+
+
+   </script>
+
+
+
+
+<div id="conteudo">
+   <br/>
+   <h1 align="center">Cadastro de Crianças</h1>
+   
+   <br/>
+<% form_for(@crianca) do |f| %>
+ <%= f.error_messages %>
+ <p>
+  <fieldset>
+   <legend><font size=4>Dados da Inscrição</font></legend>
+   <table width="100%">
+    <td width="60%">
+     <table>
+      <tr>
+         <td><b><%= f.label :servidor_publico, 'Filho de servidor publico cuncursado?' %></b></td>
+         <td><%= f.check_box :servidor_publico %>SIM </td>
+      </tr>
+      <tr>
+         <td><b> <%= f.label :unidade, 'Unidade da Inscrição' %></b></td>
+         <td><%= f.collection_select :unidade_id, @unidades, :id, :nome, :include_blank => '---Selecione---' %></td>
+      </tr>
+      <tr>
+          <td><b><%= f.label :created_at, 'Cadastrado em:' %></b></td>
+          <td><%= f.datetime_select :created_at, :order => [:day, :month, :year] %></td>
+      </tr>
+    </table>
+    <td VALIGN=TOP>
+      <div id="mensagem">
+        <u>OBSERVAÇÕES:</u> <br />
+          > UTILIZAR  SOMENTE LETRAS MAIÚSCULAS<br />
+          > DIGITAR SEMPRE NOMES E DADOS COMPLETOS <br />
+          > NÃO UTILIZAR ACENTUAÇÃO, TIL E CEDILHA<br />
+          > NÃO UTILIZAR ABREVIAÇÕES<br />
+          >  <font color="red" size="6">*</font> PREENCHIMENTO OBRIGARÓTIO
+      </div>
+    </td>
+   </table>
+  </fieldset>
+    <br/>
+  <fieldset>
+      <%= form_tag({ :method => 'post', :action => 'search' }, :id => 'classificacao')%>
+        <%= error_messages_for 'contact' %>
+          <table border="1">
+            <tr>
+              <th><font color="red" size="5">*</font><%= label :regiao, 'Região de Preferência  ' %></th>
+              <td><%= collection_select :regiao, :regiao_id, @regiaos, :id, :nome, :include_blank => '---Selecione---' %>
+                  <%= observe_field '#regiao_regiao_id',
+                    :with => :regiao_regiao_id,
+                    :url => { :action => 'rg' } %>
+              </td>
+              <td rowspan="2"><%= submit_tag 'Go!' %></td>
+            </tr>
+            <tr>
+              <th align="left"><font color="red" size="5">*</font>Classificação</th>
+              <td><%= collection_select :classificacao, :grupo_id, @grupos, :id, :nome, :include_blank => '---Selecione---' %>
+                    <%= observe_field("classificacao_grupo_id",
+                      :url => {:action => 'grupo_crianca'},
+                      :with =>"classificacao_grupo_id",
+                      :on => "blur"
+                      )%>
+                <div id='descricao'></div>
+              </td>
+            </tr>
+          </table>
+  </fieldset>
+  <br/>
+<fieldset>
+   <legend><font size=4>Dados da Criança</font></legend>
+      <table>
+       <tr>
+         <td><b><font color="red" size="5">*</font>Nome </b>
+         <td><%= f.text_field :nome %></td>
+             <%= observe_field :crianca_nome,
+               :with => :crianca_nome,
+               :url => { :action => 'mesmo_nome' } %>
+          </td>
+          <td>
+             <div id='nome_aviso'></div>
+          </td>
+          <td>
+             <div id='aviso_mae'></div>
+          </td>
+       </tr>
+       <tr>
+         <td><b><%= f.label :nascimento, 'Data Nascimento' %></b></td>
+         <!--<td><%= datepicker_tag(:crianca, :nascimento,{:size  => 10},{:changeYear => true, :yearRange => "'1990:2010'",:duration => "'slow'"}) %></td>!-->
+         <td>    <%= f.date_select(:nascimento, :order => [:day, :month, :year], :start_year => (Date.today.year), :end_year => (Date.today.year - 30)) %><BR /></td>
+       </tr>
+       <tr>
+         <td><b><font color="red" size="5">*</font>Nome da Mãe</b></td>
+         <td><%= f.text_field :mae%>
+             <%= observe_field :crianca_mae,
+               :with => :crianca_mae,
+               :url => { :action => "mesma_mae" } %>
+         </td>
+         <td>
+            <div id='nome_mae'></div>
+         </td>
+       </tr>
+       <tr>
+           <td>
+               <b>Possui irmão(s)</b>
+                <a href="#" id="dropdownbutton9"><%= f.check_box :gemelar %></a>SIM
+               <td>
+                <ul id="menu9" style="display:none">
+                  <b>Observações</b>
+                   <%= f.text_field :obs_irmao %><br />
+               </ul>
+               </td>
+           </td>
+      </tr>
+       <tr>
+         <td><b>Endereço  </b></td>
+         <td><%= f.text_field :endereco %></td>
+        </tr>
+        <tr>
+          <td><b>Número</b></td>
+          <td><%= f.text_field :numero %></td>
+        </tr>
+        <tr>
+          <td><b>Complemento</b></td>
+          <td><%= f.text_field :complemento %></td>
+        </tr>
+        <tr>
+          <td><b>Bairro</b></td>
+          <td><%= f.text_field :bairro %></td>
+        </tr>
+        <tr>
+          <td><b><font color="red" size="5">*</font>Telefone Residencial</b></td>
+          <td><%= f.text_field :tel1 %></td>
+       </tr>
+       <tr>
+         <td><b>Telefone Recado</b></td>
+         <td><%= f.text_field :tel2 %></td>
+       </tr>
+       <tr>
+         <td><b>Nome (recado) </b></td>
+         <td><%= f.text_field :nomerecado %></td>
+       </tr>
+       <tr>
+         <td><b>Celular</b></td>
+         <td><%= f.text_field :celular %></td>
+      </table>
+  </fieldset>
+  <br />
+  
+
+  <fieldset>
+   <legend><font size=4>Acompanhante</font></legend>
+   <th><b>Responsável pela criança</b></th>
+   <a href="#" id="dropdownbutton"><%= f.check_box :responsavel %></a><th>SIM</th><br />
+       <ul id="menu" style="display:none">
+         <th><b>Nome Responsável</b></th>
+         <%= f.text_field :nome_responsavel %><br />
+         <th><b>parentesco</b></th>
+         <%= f.select :parentesco, GRAU, :include_blank => ''%><br/>
+
+       </ul>   
+ 
+   <th><b>Trabalha?</b></th>
+   <a href="#" id="dropdownbutton1"><%= f.check_box :trabalha %></a><th>SIM</th><br />
+       <ul id="menu1" style="display:none">
+         <th><b>Local Trabalho</b></th>
+         <%= f.text_field :local_trabalho %><br/>
+         <th><b>Fone Trabalho</b></th>
+         <%= f.text_field :fonetrabalho %><br />
+       </ul>   
+  </fieldset>
+ <br/>
+
+  <fieldset>
+   <legend><font size=4>Preferências</font></legend>
+
+    <div id='region'>
+   </div>
+  </fieldset>
+ <br/>
+  <fieldset>
+ <th><b>Possui necessidade especial?</b></th>
+   <a href="#" id="dropdownbutton5"><%= f.check_box :n_especial %></a><th>SIM</th><br />
+       <ul id="menu5" style="display:none">
+         <th><b>Descreva a necessidade</b></th><br/>
+         <%= f.text_area :necessidade %><br/>
+       </ul>
+  </fieldset>
+ <br/>
+  <fieldset>
+   <div id='Certeza'>  
+     <p>
+      <%= f.submit "Cadastrar" %>
+     </p>
+   </div>
+  </fieldset>
+ </p>
+ <br/>
+ | <%= link_to 'Voltar', root_path %> |
+<% end %>
+</div>

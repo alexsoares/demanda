@@ -20,6 +20,16 @@ class CriancasController < ApplicationController
       format.xml  { render :xml => @criancas }
     end
   end
+  
+  def relatorio_crianca
+    @crianca = "Filtre pela criança desejada"
+  end
+
+  def search
+    @crianca = Crianca.find(:all, :conditions => ["nome like ?", "%" + params[:search].to_s + "%"], :include => ['grupo','unidade'])
+    render :action => 'relatorio_crianca'
+  end
+
 
   # GET /criancas/1
   # GET /criancas/1.xml
@@ -31,8 +41,6 @@ class CriancasController < ApplicationController
       format.xml  { render :xml => @crianca }
     end
   end
-
-
 
   # GET /criancas/new
   # GET /criancas/new.xml
@@ -47,7 +55,9 @@ class CriancasController < ApplicationController
 
   # GET /criancas/1/edit
   def edit
+
     @crianca = Crianca.find(params[:id])
+    @unidade_matricula = Unidade.find_by_sql("select u.id, u.nome from unidades u right join criancas c on u.id in (c.option1, c.option2, c.option3, c.option4) where c.id = " + (@crianca.id).to_s)
     $id_crianca = params[:id]
     $nome = params[:nome]
   end
@@ -110,31 +120,6 @@ class CriancasController < ApplicationController
       format.xml  { head :ok }
     end
   end
-
-   #Inicialização variavel / combobox grupo
-
-  def load_grupos
-    @grupos =  Grupo.find(:all, :order => "nome")
-  end
-
-  def load_regiaos
-    @regiaos =  Regiao.find(:all, :order => "nome")
-  end
-
-  def load_unidades
-    @unidades =  Unidade.find(:all, :order => "nome")
-  end
-
-  def load_criancas
-    @criancas = Crianca.find(:all, :order => "nome ASC")
-  end
-
-  def load_criancas_mat
-    @criancasmat = Crianca.find(:all, :conditions => ["matricula = 0" ], :order => "nome ASC")
-  end
-
-
-
 
   def autentica_matricula
     $unidade_matricula = params[:crianca_unidade_matricula]
@@ -340,6 +325,7 @@ class CriancasController < ApplicationController
   end
 
   def sobresis
+    
     render :partial => 'sobre'
   end
 
@@ -390,12 +376,20 @@ class CriancasController < ApplicationController
     end
   end
 
-  def grupo_crianca
+  def grupo_crianca      
       @zero = Grupo.find_by_id(params[:crianca_grupo_id])
+      @unidades = Unidade.find :all, :conditions => {:tipo => params[:crianca_grupo_id]}
       if @zero.nil? then
-        render :text   => ''
+        render :update do |page|
+          page.replace_html '#region', :partial => 'regiao_unidade'
+          page.replace_html 'descricao', :text => ''
+        end
       else
-        render :text   =>  Grupo.find_by_id(params[:crianca_grupo_id]).descricao
+
+        render :update do |page|
+          page.replace_html 'descricao', :text => Grupo.find_by_id(params[:crianca_grupo_id]).descricao
+        end
+
      end
   end
 
@@ -416,6 +410,7 @@ class CriancasController < ApplicationController
   end
 
   def rg
+    
     @unidades = Unidade.find :all, :conditions => {:regiao_id => params[:crianca_regiao_id]}
     @u = Unidade.count :all, :conditions => {:regiao_id => params[:crianca_regiao_id]}
     if @u == 2 then
@@ -477,20 +472,44 @@ class CriancasController < ApplicationController
 
  def verifica_data
    if not params[:crianca_nascimento_3i].nil? then
-     $ano = params[:crianca_nascimento_3i].to_s
+     ano = params[:crianca_nascimento_3i].to_s
    end
    if not params[:crianca_nascimento_1i].nil? then
-     $dia = params[:crianca_nascimento_1i].to_s
+     dia = params[:crianca_nascimento_1i].to_s
    end
    if not params[:crianca_nascimento_2i].nil? then
-     $mes = params[:crianca_nascimento_2i].to_s
+     mes = params[:crianca_nascimento_2i].to_s
    end
-   $data = $dia.to_s + " " + $mes.to_s + " " + $ano.to_s
-
-   
-   render :text => $data.to_s 
+   data = dia.to_s + " " + mes.to_s + " " + ano.to_s  
+   render :text => data.to_s 
 
  end
+
+
+
+ protected
+    #Inicialização variavel / combobox grupo
+
+  def load_grupos
+    @grupos =  Grupo.find(:all, :order => "nome")
+  end
+
+  def load_regiaos
+    @regiaos =  Regiao.find(:all, :order => "nome")
+  end
+
+  def load_unidades
+    @unidades =  Unidade.find(:all, :order => "nome")
+
+  end
+
+  def load_criancas
+    @criancas = Crianca.find(:all, :order => "nome ASC")
+  end
+
+  def load_criancas_mat
+    @criancasmat = Crianca.find(:all, :conditions => ["matricula = 0" ], :order => "nome ASC")
+  end
 
 
 

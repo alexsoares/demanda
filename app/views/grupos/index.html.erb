@@ -1,16 +1,36 @@
 <div id="conteudo">
-  <div id="topo">
-    <h1 align="right">Relatório Grupos</h1>
-    <h4 align="right"> <font   color="#ff0000"> S I S D E M A N  --  Ver.1.5       . </font></h4>
-  </div><br/>
+<style media="print">
+  .botao
+  {
+    display: none;
+  }
+</style>
+
+  <br/>
+    <h1 align="center">Relatório Grupos</h1>
+  <br/>
   <p>
-    | <%= link_to 'Cadastrar', new_grupo_path %> |
     <a href="javascript:window.print();">Imprimir</a>
-    | <%= link_to ' Inicio' , root_path %> |
+    
+  <div class="botao">
+   <table width="100%">
+      <tr>
+        <td width="50%"></td>
+        <td width="50%" align="right">
+          <% form_tag grupos_path, :method => 'get' do %>
+           <p>
+              <%= hinted_text_field_tag(:search, params[:search], "Nome do Grupo", :size => 30) %>
+              <%= submit_tag "Filtrar", :name => nil %>
+           </p>
+          <% end %>
+        </td>
+      </tr>
+    </table> 
+   </div>
 
   <fieldset>
    <legend><font size=4>Grupos</font></legend>
-   <table border ="1" cellpadding="5" cellspacing="1" width="30%" >
+   <table border ="1" cellpadding="5" cellspacing="1" width="60%" >
       <tr>
         <th bgcolor="#cccccc">Nome</th>
         <th bgcolor="#cccccc">Descricão</th>
@@ -21,9 +41,9 @@
           <td><center><%=h grupo.descricao %></center></td>
         </tr>
         <tr>
-          <td bgcolor="#cccccc"><%= link_to 'Exibir', grupo %></td>
-          <td bgcolor="#cccccc"><%= link_to 'Alterar', edit_grupo_path(grupo) %></td>
-          <td bgcolor="#cccccc"><%= link_to 'Apagar', grupo, :confirm => 'Tem certeza?', :method => :delete %></td>
+          <td colspan="2" bgcolor="#cccccc"><%= link_to '|Exibir', grupo %>
+          <%= link_to '|Alterar', edit_grupo_path(grupo) %>
+          <%= link_to '|Apagar|', grupo, :confirm => 'Tem certeza?', :method => :delete %></td>
         </tr>
       <% end %>
     </table>
@@ -31,8 +51,5 @@
   </p><br />
   | <%= link_to 'Cadastrar', new_grupo_path %> |
   <a href="javascript:window.print();">Imprimir</a>
-  | <%= link_to ' Inicio' , root_path %> |
-</div>
-<div id="rodape">
-  © 2009 . Prefeitura de Americana - SEDUC - Todos os Direitos Reservados.
+  | <%= link_to ' Voltar' , root_path %> |
 </div>

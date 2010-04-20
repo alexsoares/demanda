@@ -1,12 +1,25 @@
 <div id="conteudo">
-  <div id="topo">
-    <h1 align="right">Relatório de Regiões </h1>
-    <h4 align="right"> <font   color="#ff0000"> S I S D E M A N  --  Ver.0.1       . </font></h4>
-  </div>
+  <br/>
+    <h1 align="center">Relatório de Regiões </h1>
+    
+  <br/>
   <p>
-| <%= link_to 'Cadastrar', new_regiao_path %> |
+
    <a href="javascript:window.print();">Imprimir</a>
-| <%= link_to ' Inicio' , root_path %> |
+
+   <table width="100%">
+      <tr>
+        <td width="50%"></td>
+        <td width="50%" align="right">
+          <% form_tag regiaos_path, {:method => 'get', :action => 'search'} do %>
+           <p>
+              <%= hinted_text_field_tag(:search, params[:search], "Entre nome da criança", :size => 30) %>
+              <%= submit_tag "Filtrar", :name => nil %>
+           </p>
+          <% end %>
+        </td>
+      </tr>
+    </table>
 
   <fieldset>
    <legend><font size=4>Regiões</font></legend>
@@ -21,23 +34,15 @@
         <td><%=h regiao.nome %></td>
        </tr>
        <tr>
-         <td bgcolor="#cccccc"><%= link_to 'Exibir', regiao %></td>
-        <td bgcolor="#cccccc"><%= link_to 'Alterar', edit_regiao_path(regiao) %></td>
-        <td bgcolor="#cccccc"><%= link_to 'Apagar', regiao, :confirm => 'Tem certeza?', :method => :delete %></td>
+         <td colspan="3" bgcolor="#cccccc">|<%= link_to 'Exibir', regiao %>
+        |<%= link_to 'Alterar', edit_regiao_path(regiao) %>
+        |<%= link_to 'Apagar', regiao, :confirm => 'Tem certeza?', :method => :delete %>|</td>
        </tr>
       <% end %>
     </table>
    </fieldset>
   </p>
   <p>
-
-   | <%= link_to 'Cadastrar', new_regiao_path %> |
      <a href="javascript:window.print();">Imprimir</a>
-   | <%= link_to ' Inicio' , root_path %> |
-
-
   </p>
-</div>
-<div id="rodape">
-  © 2009 . Prefeitura de Americana - SEDUC - Todos os Direitos Reservados.
 </div>
