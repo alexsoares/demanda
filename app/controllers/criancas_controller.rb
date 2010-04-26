@@ -337,7 +337,7 @@ HEREDOC
  end
 
   def efetiva_realocacao
-    
+   Crianca.connection.execute("CALL atualiza_grupo")
    render :update do |page|
       page.replace_html 'reordenar', :text => ''
       page.replace_html 'confirma', :text => "<strong>Processo concluído com sucesso</strong>"

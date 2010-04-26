@@ -5,7 +5,7 @@
   <br/>
   <p>
 
-   <a href="javascript:window.print();">Imprimir</a>
+   <input type="Button" Value="Imprimir" onclick="Imprimir()">
 
    <table width="100%">
       <tr>
@@ -31,18 +31,18 @@
 
       <% for regiao in @regiaos %>
        <tr>
-        <td><%=h regiao.nome %></td>
+        <td colspan="3"><%=h regiao.nome %></td>
        </tr>
        <tr>
-         <td colspan="3" bgcolor="white">|<%= link_to 'Exibir', regiao %></td>
-        <td colspan="3" bgcolor="white">|<%= link_to 'Alterar', edit_regiao_path(regiao) %></td>
-        <td colspan="3" bgcolor="white">|<%= link_to 'Apagar', regiao, :confirm => 'Tem certeza?', :method => :delete %>|</td>
+        <td bgcolor="white">|<%= link_to 'Exibir', regiao %></td>
+        <td bgcolor="white">|<%= link_to 'Alterar', edit_regiao_path(regiao) %></td>
+        <td bgcolor="white">|<%= link_to 'Apagar', regiao, :confirm => 'Tem certeza?', :method => :delete %>|</td>
        </tr>
       <% end %>
     </table>
    </fieldset>
   </p>
   <p>
-     <a href="javascript:window.print();">Imprimir</a>
+     <input type="Button" Value="Imprimir" onclick="Imprimir()">
   </p>
 </div>
