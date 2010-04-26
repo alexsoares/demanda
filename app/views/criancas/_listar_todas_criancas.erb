@@ -1,12 +1,11 @@
 <style media="print">
-.botao {
-display: none;
-}
+  .botao {
+    display: none;
+  }
 </style>
-
-
-|<a href="javascript:window.print();">Imprimir</a>
-| <%= link_to_remote('Voltar', :update => "consul", :url => { :action => "consulta"}) %> |
+<div class="botao">
+  <input type="Button" Value="Imprimir" onclick="Imprimir()">
+</div>
 
 <%$teste=0%>
 <div id="contador"></div>
@@ -67,24 +66,18 @@ display: none;
        <td bgcolor="white"><%= link_to 'Alterar', edit_crianca_path(crianca) %></td>
        <td bgcolor="white"><%= link_to 'Apagar', crianca, :confirm =>	 'Confirma a deleção?', :method => :delete %></td>
     </div>
-    
     <%else%>
-    <%  if current_user.has_role?('escola') then%>
-    <div id="negrito">
-       <td bgcolor="white"><%= link_to 'Exibir', crianca %></td>
-       <td bgcolor="white"><%= link_to 'Alterar', edit_crianca_path(crianca) %></td>
-
-
-    </div>
-   <%end%>
-  <%end%>
+      <%  if current_user.has_role?('escola') then%>
+        <div id="negrito">
+          <td bgcolor="white"><%= link_to 'Exibir', crianca %></td>
+          <td bgcolor="white"><%= link_to 'Alterar', edit_crianca_path(crianca) %></td>
+        </div>
+      <%end%>
+    <%end%>
   </tr>
 <% end %>
-
 </table>
 <br/>
-
-
 <tr>
 <p><font size=3>
 
@@ -93,6 +86,8 @@ display: none;
 </font></p>
 </tr>
 <br/>
-| <%= link_to_remote('Versão para impressão', :update => "listagem", :url => { :action => "versao_impressao_todas"}) %> 
-| <%= link_to_remote('Voltar', :update => "consul", :url => { :action => "consulta"}) %> |
+<div class="botao">
+  <input type="Button" Value="Imprimir" onclick="Imprimir()">
+</div>
+
 

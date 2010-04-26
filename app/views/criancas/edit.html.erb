@@ -188,7 +188,7 @@
       </tr>
       <tr>
          <td><b>Unidade Matriculada</b></td>
-         <td><%= f.collection_select :unidade_matricula, @unidades, :id, :nome, :include_blank => '' %> </td>
+         <td><%= f.collection_select :unidade_matricula, @unidade_matricula, :id, :nome, :include_blank => '' %> </td>
          <td> <div id="unidade"></div></td>
          <%= observe_field("crianca_unidade_matricula",
            :url => {:action => 'autentica_matricula'},

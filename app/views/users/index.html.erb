@@ -12,8 +12,8 @@
         <td width="100%" colspan="5" align="center"><h1>Listagem Usuários Cadastrados</h1></td>
   </tr>
   <tr>
-    <th align="center">LOGIN</th>
-    <th align="center">STATUS</th>
+    <th align="center" bgcolor="gray">LOGIN</th>
+    <th align="center" bgcolor="gray">STATUS</th>
   </tr>
 <%@usuarios = User.find(:all, :order => 'login') %>
 <% for user in @usuarios %>

@@ -10,7 +10,7 @@
     <h1 align="center">Relatório Grupos</h1>
   <br/>
   <p>
-    <a href="javascript:window.print();">Imprimir</a>
+    <input type="Button" Value="Imprimir" onclick="Imprimir()">
     
   <div class="botao">
    <table width="100%">
@@ -29,11 +29,11 @@
    </div>
 
   <fieldset>
-   <legend><font size=4>Grupos</font></legend>
-   <table border ="1" cellpadding="5" cellspacing="1" width="60%" >
+   <legend><font size=4 >Grupos</font></legend>
+   <table border ="1" cellpadding="5" cellspacing="1" width="100%" >
       <tr>
-        <th bgcolor="#cccccc">Nome</th>
-        <th bgcolor="#cccccc">Descricão</th>
+        <th bgcolor="gray">Nome</th>
+        <th bgcolor="gray">Descricão</th>
       </tr>
       <% for grupo in @grupos %>
         <tr>
@@ -41,7 +41,7 @@
           <td><center><%=h grupo.descricao %></center></td>
         </tr>
         <tr>
-          <td colspan="2" bgcolor="#cccccc"><%= link_to '|Exibir', grupo %>
+          <td colspan="2" bgcolor="white"><%= link_to '|Exibir', grupo %>
           <%= link_to '|Alterar', edit_grupo_path(grupo) %>
           <%= link_to '|Apagar|', grupo, :confirm => 'Tem certeza?', :method => :delete %></td>
         </tr>
@@ -49,7 +49,5 @@
     </table>
    </fieldset>
   </p><br />
-  | <%= link_to 'Cadastrar', new_grupo_path %> |
-  <a href="javascript:window.print();">Imprimir</a>
-  | <%= link_to ' Voltar' , root_path %> |
+    <input type="Button" Value="Imprimir" onclick="Imprimir()">
 </div>

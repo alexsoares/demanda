@@ -1,14 +1,7 @@
-<style media="print">
-.botao {
-display: none;
-}
-</style>
-
 <div id="conteudo">
 <br/>
 <br/>
 <h2 align="center">Gráfico Demanda por Unidade</h2>
-<hr>
 <br/>
 <br/>
   <%= form_tag({ :method => 'post', :action => 'search' }, :id => 'graph-unit-form')%>
@@ -17,12 +10,12 @@ display: none;
     <div class="botao">
       <tr>
         <th width="30%">
-          Selecione a Unidade desejada.
+          <div class="botao">Selecione a Unidade desejada.</div>
         </th>
         <td width="20%" align="center">
-          <%= collection_select :contact, :grafico_id, @unidades, :id, :nome%>
+          <div class="botao"><%= collection_select :contact, :grafico_id, @unidades, :id, :nome%></div>
         </td>
-        <td><%= submit_tag 'Go!' %></td>
+        <td><div class="botao"><%= submit_tag 'Go!' %></div></td>
       </tr>
     </div>
     </table>
@@ -31,12 +24,30 @@ display: none;
   <br/>
 <table width="100%">
   <tr>
-    <td align="center"><%= @graph %></td>
+
+      <td align="center"><div class="botao"><%= @graph %></div></td><br/>
+
+      <% if @static_graph.present?%>
+        
+        <td><div class="tela"><%= image_tag(@static_graph)%></div></td>
+      <%end%>
+
   </tr>
     <tr>
     <td width="100%" align="center">
-      <%= link_to("Voltar", grafico_path) %>
+      <div class="botao">
+        <%= link_to("Voltar", grafico_path) %><br/>
+        <input type="Button" Value="Imprimir" onclick="Imprimir()">
+      </div>
     </td>
   </tr>
 </table>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 </div>

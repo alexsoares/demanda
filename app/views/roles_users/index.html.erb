@@ -11,9 +11,9 @@
         <td width="100%" colspan="4" align="center"><h1>Listagem Usuários Associados</h1></td>
   </tr>
   <tr>
-    <th>Login</th>
-    <th>Acesso de</th>
-    <th>Descricao</th>
+    <th bgcolor="gray">Login</th>
+    <th bgcolor="gray">Acesso de</th>
+    <th bgcolor="gray">Descricao</th>
   </tr>
 <% for role_user in @role_users %>
   <tr>
@@ -40,10 +40,9 @@
     <%end%>
   </tr>
   <tr>
-    <td colspan="2" bgcolor="#cccccc">
-    | <%= link_to 'Exibir', role_user %>
-    | <%= link_to 'Alterar', edit_roles_user_path(role_user) %>
-    | <%= link_to 'Apagar', role_user, :confirm => 'Confirma?', :method => :delete %> |</td>
+    <td colspan="2" bgcolor="white">| <%= link_to 'Exibir', role_user %></td>
+    <td>| <%= link_to 'Alterar', edit_roles_user_path(role_user) %></td>
+    <td>| <%= link_to 'Apagar', role_user, :confirm => 'Confirma?', :method => :delete %> |</td>
   </tr>
 <% end %>
 

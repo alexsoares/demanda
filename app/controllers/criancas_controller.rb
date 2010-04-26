@@ -269,35 +269,35 @@ class CriancasController < ApplicationController
 
   def atualiza_grupo
     @atualiza_grupo = Crianca.find(:all)
-    $contador = 0
-    $contador2 = 0
-    $contador3 = 0
-    $contador4 = 0
-    $contador5 = 0
-    $contador6 = 0
-    $contador7 = 0    
+    contador = 0
+    contador2 = 0
+    contador3 = 0
+    contador4 = 0
+    contador5 = 0
+    contador6 = 0
+    contador7 = 0    
     for at_grupo in @atualiza_grupo
       dias = Date.today - at_grupo.nascimento
       if (((0 >= dias) and (dias < 366)) and at_grupo.grupo_id != 1) then
-        $contador = $contador + 1
+        contador = contador + 1
       else
         if (((dias > 365) and (dias < 577)) and at_grupo.grupo_id != 2) then
-          $contador2 = $contador2 + 1
+          contador2 = contador2 + 1
         else
           if (((dias > 576) and (dias < 851)) and at_grupo.grupo_id != 3) then
-            $contador3 = $contador3 + 1
+            contador3 = contador3 + 1
           else
             if (((dias > 850) and (dias < 1096)) and at_grupo.grupo_id != 4) then
-              $contador4 = $contador4 + 1
+              contador4 = contador4 + 1
             else
               if (((dias > 1095) and (dias < 1276)) and at_grupo.grupo_id != 5) then
-                $contador5 = $contador5 + 1
+                contador5 = contador5 + 1
               else
                 if (((dias > 1275) and (dias < 1641)) and at_grupo.grupo_id != 6) then
-                  $contador6 = $contador6 + 1
+                  contador6 = contador6 + 1
                 else
                   if( ((dias > 1640) and (dias < 2006)) and at_grupo.grupo_id != 7) then
-                    $contador7 = $contador7 + 1
+                    contador7 = contador7 + 1
                   end
                 end
               end
@@ -312,13 +312,38 @@ class CriancasController < ApplicationController
     @reclassifica.data = (Time.now().strftime("%d/%m/%y %H:%M")).to_s
     @reclassifica.crianca_id = 0
     @reclassifica.save
-    Crianca.connection.execute("CALL atualiza_grupo")
+
+    mystring = <<-HEREDOC
+    <br/>
+    <h3>Contabilidade Grupos após esta ação</h3>
+    <br/>
+    
+    Para grupo BI serão realocado(s) <strong><font color="red">#{contador.to_s}</font></strong> criança(s).
+    Para grupo BII serão realocado(s) <strong><font color="red">#{contador2.to_s}</font></strong> criança(s).
+    Para grupo BIII serão realocado(s) <strong><font color="red">#{contador3.to_s}</font></strong> criança(s).
+    Para grupo MI serão realocado(s)  <strong><font color="red">#{contador4.to_s}</font></strong> criança(s).
+    Para grupo MII serão realocado(s)  <strong><font color="red">#{contador5.to_s}</font></strong> criança(s).
+    Para grupo NI serão realocado(s)  <strong><font color="red">#{contador6.to_s}</font></strong> criança(s).
+    Para grupo NII serão realocado(s)  <strong><font color="red">#{contador7.to_s}</font></strong> criança(s).
+    
+HEREDOC
+    
+
    render :update do |page|
-      page.replace_html 'reordenar', :text => 'Para grupo BI foi(ram) realocado(s) ' + $contador.to_s +  ' criança(s), Para grupo BII foi(ram) realocado(s) ' + $contador2.to_s + ' criança(s), Para grupo BIII foi(ram) realocado(s) ' +  $contador3.to_s + ' criança(s), Para grupo MI foi(ram) realocado(s)  ' + $contador4.to_s + ' criança(s), Para grupo MII foi(ram) realocado(s)  ' + $contador5.to_s + ' criança(s),  Para grupo NI foi(ram) realocado(s)  ' + $contador6.to_s + ' criança(s),  Para grupo NII foi(ram) realocado(s)  ' + $contador7.to_s + ' criança(s).'
+      page.replace_html 'reordenar', :text => mystring
+      page.replace_html 'confirma', :partial => 'reordenar_criancas'
    end
 
  end
 
+  def efetiva_realocacao
+    
+   render :update do |page|
+      page.replace_html 'reordenar', :text => ''
+      page.replace_html 'confirma', :text => "<strong>Processo concluído com sucesso</strong>"
+   end
+
+  end
 
   def config
     render :partial => 'configuracao'

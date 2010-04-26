@@ -29,9 +29,9 @@ display: none;
    <legend><font size=4>Unidades</font></legend>
    <table border ="1" cellpadding="5" cellspacing="1" width="100%" >
       <tr>
-        <th bgcolor="#cccccc">Localização</th>
-        <th bgcolor="#cccccc">Nome</th>
-        <th bgcolor="#cccccc">Tipo de Ensino</th>
+        <th bgcolor="gray">Localização</th>
+        <th bgcolor="gray">Nome</th>
+        <th bgcolor="gray">Tipo de Ensino</th>
       </tr>
       <%for unidade in @unidades%>
         <tr>
@@ -41,9 +41,9 @@ display: none;
        </tr>
         <tr>
           <div class="botao">
-          <td colspan="3" bgcolor="#cccccc"><%= link_to '|Exibir', unidade %>
-          <%= link_to '|Alterar', edit_unidade_path(unidade) %>
-          <%= link_to '|Apagar|', unidade, :confirm => 'Tem certeza?', :method => :delete %></td>
+          <td bgcolor="white"><%= link_to '|Exibir', unidade %></td>
+          <td bgcolor="white"><%= link_to '|Alterar', edit_unidade_path(unidade) %></td>
+          <td bgcolor="white"><%= link_to '|Apagar|', unidade, :confirm => 'Tem certeza?', :method => :delete %></td>
           </div>
         </tr>        
       <% end %>
