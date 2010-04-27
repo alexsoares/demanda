@@ -7,10 +7,11 @@ class GraficoController < ApplicationController
   def grafico_demanda_geral
     @graph = open_flash_chart_object(600,300,"/grafico/graph_code_demanda_geral")
 
-        @static_graph = Gchart.pie(
+        @static_graph = Gchart.pie_3d(
           :data => [(Crianca.b_u).length,(Crianca.b_dm).length],
           :title => "Demanda Geral - Crianças Cadastradas: #{Crianca.c.length}",
           :size => '600x300',
+          :format => 'image_tag',
           :labels => ["Matriculadas #{(Crianca.b_u).length}", "Não matriculadas #{(Crianca.b_dm).length}"])      
   end  
 
@@ -22,10 +23,11 @@ class GraficoController < ApplicationController
       @graph = open_flash_chart_object(600,300,"/grafico/graph_por_unidade?unidade=#{input}",false,'/')
       
           
-    @static_graph = Gchart.pie(
+    @static_graph = Gchart.pie_3d(
         :data => [(Crianca.matriculas_crianca_por_unidade(input)).length,(Crianca.nao_matriculas_crianca_por_unidade(input)).length], 
         :title => "Demanda por Unidade: #{Crianca.nome_unidade(input)} - #{(Crianca.todas_crianca_por_unidade(input)).length}" ,
         :size => '600x300',
+        :format => 'image_tag',
         :labels => ["Matriculadas #{(Crianca.matriculas_crianca_por_unidade(input)).length}", "Não matriculadas #{(Crianca.nao_matriculas_crianca_por_unidade(input)).length}"])
 
       render :action => "crianca_por_unidade"
