@@ -18,7 +18,7 @@
 # end
 
 every 1.minute do
-runner "usr/bin/mysqldump -u root demanda_production > /home/railsapps/bkp_demanda.sql"
+	runner "/usr/bin/mysqldump -u root demanda_production > /home/railsapps/bkp_demanda.sql"
 end
 
 # Learn more: http://github.com/javan/whenever
