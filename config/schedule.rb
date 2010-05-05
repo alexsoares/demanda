@@ -17,5 +17,9 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
+ every 5.minute do
+    command "/usr/bin/mysqldump -u root demanda_production >
+/home/railsapps/bkp_demanda.sql"
+ end
 
 # Learn more: http://github.com/javan/whenever
