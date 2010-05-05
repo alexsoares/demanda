@@ -11,7 +11,7 @@ set :scm, :git
 server application, :app, :web, :db, :primary => true
 
 after "deploy:update_code", "deploy:custom_symlinks"
-after "deploy:symlink", "deploy:update_crontab"
+#after "deploy:symlink", "deploy:update_crontab"
 
  namespace :deploy do
    task :start do ; end
@@ -26,10 +26,5 @@ after "deploy:symlink", "deploy:update_crontab"
    end
  end
 
- namespace :deploy do
-    desc "Update the crontab file"
-    task :update_crontab, :roles => :db do
-      run "cd #{release_path} && whenever --update-crontab #{application}"
-    end
 
- end
+
