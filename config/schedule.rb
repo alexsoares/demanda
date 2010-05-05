@@ -18,7 +18,7 @@
 # end
 
  every 3.days do
-    runner "Faq."
+    runner "Faq.all > ~/teste.txt"
  end
 
 
