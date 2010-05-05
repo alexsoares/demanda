@@ -1083,3 +1083,7 @@ Processing SessionsController#new (for 127.0.0.1 at 2010-04-29 13:25:08) [GET]
 Rendering template within layouts/login
 Rendering sessions/new
 Completed in 26ms (View: 16, DB: 3) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (61.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (1.8ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mGrupo Load (58.1ms)[0m   [0;1mSELECT * FROM `grupos` [0m
+  [4;35;1mGrupo Columns (98.4ms)[0m   [0mSHOW FIELDS FROM `grupos`[0m

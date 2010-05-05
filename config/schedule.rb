@@ -17,5 +17,9 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
+ every 3.days do
+    runner "Faq."
+ end
+
 
 # Learn more: http://github.com/javan/whenever
