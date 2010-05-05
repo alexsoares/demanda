@@ -25,7 +25,7 @@ after "deploy:symlink", "deploy:update_crontab"
      run "ln -s #{shared_path}/database.yml #{release_path}/config/database.yml"
    end
     desc "Update the crontab file"
-#    task :update_crontab, :roles => :db do
+    task :update_crontab, :roles => :db do
     task :update_crontab do
       run "cd #{release_path} && whenever --update-crontab #{application}"
     end
