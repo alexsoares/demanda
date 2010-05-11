@@ -29,6 +29,8 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "googlecharts", :lib => "gchart"
+  config.gem 'whenever', :lib => false
+
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -77,3 +79,12 @@ Rails::Initializer.run do |config|
 config.i18n.default_locale = "pt-BR"
 
 end
+
+ActionMailer::Base.default_content_type = "text/html"
+ActionMailer::Base.smtp_settings = {
+   :address => "smtp.gmail.com",
+   :port => 587,
+   :authentication => :plain,
+   :user_name => "demanda@ribeirosoares.com", #Você pode usar o Google Apps!
+   :password => 's3inf09'
+}

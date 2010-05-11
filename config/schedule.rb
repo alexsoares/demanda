@@ -13,12 +13,12 @@
 #   rake "some:great:rake:task"
 # end
 #
+every 1.minute do
+ command "/usr/bin/mysqldump -u root -ps3inf05 demanda_production > /home/administrador/BKP_DD.sql"
+end
+
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
 # end
-
-every 1.minute do
-runner "usr/bin/mysqldump -u root demanda_production > /home/railsapps/bkp_demanda.sql"
-end
 
 # Learn more: http://github.com/javan/whenever
