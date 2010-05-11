@@ -22,3 +22,11 @@ end
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+  every 1.minute do
+    runner "Faq.create(:user_id => 1, :duvida => 'auto_project__' + Time.now.to_s(:db))"
+    # rake "my:rake:task"
+    # command "/usr/bin/my_great_command"
+  end
+
+
